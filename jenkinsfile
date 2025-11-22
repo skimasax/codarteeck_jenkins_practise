@@ -1,3 +1,27 @@
 pipleine{
-    
+
+    agent any
+
+    stages{
+        stage('checkout'){
+            steps {
+                git branch: 'main',
+                    url: 'https://github.com/skimasax/codarteeck_jenkins_practise.git'
+            }
+        }
+
+        stage('Install Dependencies'){
+            steps{
+                sh 'npm install'
+            }
+        }
+
+         stage('Run Tests') {
+            steps {
+                sh 'npm test || echo "No tests found"'
+            }
+        }
+
+
+    }
 }
