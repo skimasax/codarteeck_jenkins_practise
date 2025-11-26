@@ -5,8 +5,7 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                git branch: 'main',
-                    url: 'https://github.com/skimasax/codarteeck_jenkins_practise.git'
+                checkout scm
             }
         }
 
@@ -21,11 +20,17 @@ pipeline {
                 sh 'npm test || echo "No tests found"'
             }
         }
+
+        stage('Start App') {
+            steps {
+                sh 'node server.js &'
+            }
+        }
     }
 
     post {
         always {
-            echo "Pipeline finished."
+            echo "Pipeline completed."
         }
     }
 }
